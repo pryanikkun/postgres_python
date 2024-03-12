@@ -50,7 +50,6 @@ class ClientDB:
                     VALUES (%s, %s);
                 """, (phone, client_id))
         self.conn.commit()
-        return client_id
 
     def add_phone(self, client_id: int, phone: int):
         self.cur.execute("""
@@ -188,10 +187,10 @@ if __name__ == '__main__':
     my_client.create_tables()
 
     # добавление клиента
-    print(my_client.create_client(first_name='Софья',
-                                  last_name='Иванова',
-                                  email='sonya@mail.ru',
-                                  phones=[79545437777, 79001233322]))
+    my_client.create_client(first_name='Софья',
+                            last_name='Иванова',
+                            email='sonya@mail.ru',
+                            phones=[79545437777, 79001233322])
 
     # добавление телефона
     my_client.add_phone(phone=79535433331,
@@ -203,7 +202,6 @@ if __name__ == '__main__':
                             last_name='Иванова',
                             email='sonya@mail.ru',
                             phones=[(79001233321, 1), (79535433323, 3)])
-
 
     # получение информации о клиенте по телефону
     print(my_client.get_client(phone=79001233322))
