@@ -92,9 +92,10 @@ class ClientDB:
         if phones:
             for phone in phones:
                 self.cur.execute("""
-                    INSERT INTO phone (phone_number, client_id)
-                    VALUES (%s, %s);
-                """, (phone, client_id))
+                    UPDATE phone 
+                    SET phone_number=%s
+                    WHERE id=%s;
+                """, (phone[0], phone[1]))
 
         self.conn.commit()
 
@@ -201,7 +202,7 @@ if __name__ == '__main__':
                             first_name='Ирина',
                             last_name='Иванова',
                             email='sonya@mail.ru',
-                            phones=[79001233321, 79535433323])
+                            phones=[(79001233321, 1), (79535433323, 3)])
 
 
     # получение информации о клиенте по телефону
